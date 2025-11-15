@@ -23,7 +23,7 @@
 
     <dependencies>
 
-        <!-- Vaadin 8 stable -->
+        <!-- Vaadin 8 -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-server</artifactId>
@@ -42,7 +42,26 @@
             <version>${vaadin.version}</version>
         </dependency>
 
-        <!-- Servlet API -->
+        <!-- IMPORTANT: Vaadin 7 compatibility (your project needs this!) -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-compatibility-server</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-compatibility-client</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-compatibility-themes</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+
+        <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -50,11 +69,18 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Utilities -->
+        <!-- Bean Utils -->
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.4</version>
+        </dependency>
+
+        <!-- missing dependency seen in Jenkins logs -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
         </dependency>
 
         <!-- Logging -->
@@ -70,7 +96,7 @@
             <version>1.7.36</version>
         </dependency>
 
-        <!-- Test -->
+        <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -96,21 +122,24 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire (fixed) -->
+            <!-- Surefire (fixed for Jenkins Java 17) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
             </plugin>
 
-            <!-- WAR Plugin -->
+            <!-- WAR build -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
             </plugin>
 
-            <!-- Jacoco -->
+            <!-- Jacoco for test coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -135,4 +164,5 @@
     </build>
 
 </project>
+
 
